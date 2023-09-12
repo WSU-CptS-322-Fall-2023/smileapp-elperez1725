@@ -6,3 +6,5 @@ class Post(db.Model):
     title = db.Column(db.String(150))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     happiness_level = db.Column(db.Integer, default = 3)
+    body = db.Column(db.String(1500))
+    likes = db.Column(db.Integer, default = 0)
