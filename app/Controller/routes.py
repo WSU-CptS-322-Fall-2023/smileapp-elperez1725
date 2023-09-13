@@ -28,6 +28,15 @@ def postsmile():
 @bp_routes.route('/index', methods=['GET'])
 def index():
     posts = Post.query.order_by(Post.timestamp.desc())
-    return render_template('index.html', title="Smile Portal", posts=posts.all())
+    return render_template('index.html', title="Smile Portal", posts=posts)
 
+
+
+@bp_routes.route('/like/<post_id>', methods=['POST'])
+def like(post_id):
+    likes = Post.query.get(post_id)
+    likes.likes += 1
+    db.session.add(likes)
+    db.session.commit()
+    return redirect(url_for('routes.index'))
 

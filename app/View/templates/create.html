@@ -10,33 +10,45 @@
             {{ form.hidden_tag() }}
             <div>
                 <!--Displays the form item for the post's `title`.--> 
-                {{ form.title.label }}
-                {{ form.title(class="formtitle") }}<br>
+              
+                    {{ form.title.label }}<br>
+              
+                    {{ form.title(class="formtitle") }}<br>
+                
              
                 <!-- TODO: (milestone 1) Display the error messages of the `title` field validator (if there are any validation errors).   -->  
-                {% for error in form.title.errors %}
-                    <span class="error">{{ error }}</span><br>
-                {% endfor %}
-
+                    {% for error in form.title.errors %}
+                        <span class="error">{{ error }}</span><br>
+                    {% endfor %}
+              
                 <!-- TODO: (milestone1) Include the form item for the post's `body`. Apply appropriate styling for the `body`form  item.  -->  
-
-                {{ form.body.label }}<br>
-                {{ form.body(class="formbody") }}<br>
+              
+                    {{ form.body.label }}<br>
+                
+                    {{ form.body(class="formbody") }}<br>
+               
                 
                 <!-- TODO: (milestone 1) Display the error messages of the `body` field validator (if there are any validation errors).   -->  
             
-            {% for error in form.body.errors %}
-                    <span class="error">{{ error }}</span><br>
-            {% endfor %}
+                    {% for error in form.body.errors %}
+                            <span class="error">{{ error }}</span><br>
+                    {% endfor %}
+        
 
         </div>
             
             <!-- TODO: (milestone1) Include the form item for `happiness_level` selection. Apply appropriate styling for the `happiness_level` form item.  -->  
-            {{ form.happiness_level.label }}<br>
-            {{ form.happiness_level(class="formselect") }}<br>
+            <div class="formhappiness">
+                {{ form.happiness_level.label }}
+                <div class="formselect">
+                {{ form.happiness_level(class="formselect") }}
+                </div>
+            </div>
             <!-- TODO: (milestone2) Include the form item for `tag` selection.   -->  
-
-            {{ form.submit(class="button") }}
+            <div class="submitbutton">
+                {{ form.submit(class="button") }}
+            </div>
+            
         </form>
     {% endif %}
 

@@ -37,9 +37,28 @@ a:hover {
 
 .posttitle {
     text-align: center;
-    font-weight: bold;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
 }
 
+.postmessage{
+    font-family:'Courier New', Courier, monospace;
+    padding: 10px;
+
+}
+
+
+.posttimestamp{
+    font-family:'Courier New', Courier, monospace;
+    padding: 10px;
+}
+
+
+.likecount{
+    font-family:'Courier New', Courier, monospace;
+    padding: 10px;
+}
 .useritem{
     text-align: center;
     padding: 3px;
@@ -64,4 +83,40 @@ a:hover {
 .likebtn:hover {
     background-image: url("..//img//like_hover.png");
     cursor:pointer;
+}
+
+.formtitle{
+    width:80%;
+    height:5%;
+}
+
+
+.formbody{
+    width: 80%;
+    height:20%;
+   
+}
+
+
+
+.formhappiness{
+    display: flex;
+    align-items: center;
+    
+
+}
+
+.formselect{
+    padding-left:1%;
+}
+
+
+.submitbutton{
+    padding-top:2%;
+}
+
+
+.flash-container {
+    background-color: blue;
+    height: 20px;
 }
