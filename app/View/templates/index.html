@@ -3,17 +3,23 @@
 {% block content %}
 
     <h1>Welcome to Smile Portal!</h1>
-    <!-- TODO: (milestone1) Display smile count.   -->
-    
-    <h2>Number of smiles: {{ posts.count() }}</h2>
 
-    <!-- TODO: (milestone 2) Add the template to render an instance of a `sortForm`. The form should display the sort attribute select box and the "Refresh" submit button.
-            Style the `sortorder` form element using the `formselect` CSS element we defined in milestone1 -->
+    <h2>Number of smiles: {{ posts|length }}</h2>
 
+    <form method="POST">
+        {{ sort_form.hidden_tag() }}
+        <div>
+            {{ sort_form.sort_by.label }} {{ sort_form.sort_by }}
+            {{ sort_form.refresh }}
+        </div>
+    </form>
 
-    <!--     TODO: (milestone 2) Format posts -->
-    {% for post in posts.all() %}
-       {% include '_post.html' %} 
-    {% endfor %}
+    <div class="postlist">
+        {% for post in posts %}
+            <div class="postbox">
+                {% include '_post.html' %}
+            </div>
+        {% endfor %}
+    </div>
     
 {% endblock %}

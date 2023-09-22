@@ -3,10 +3,9 @@ import sys
 from flask import Blueprint
 from flask import render_template, flash, redirect, url_for, request
 from config import Config
-
 from app import db
-from app.Model.models import Post
-from app.Controller.forms import PostForm
+from app.Model.models import Post, Tag, postTags
+from app.Controller.forms import PostForm, SortForm
 
 bp_routes = Blueprint('routes', __name__)
 bp_routes.template_folder = Config.TEMPLATE_FOLDER #'..\\View\\templates'
@@ -18,6 +17,9 @@ def postsmile():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data, body=form.body.data, happiness_level=form.happiness_level.data)
+        for tag in form.tag.data:
+            post.tags.append(tag)
+
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
@@ -25,11 +27,25 @@ def postsmile():
     return render_template('create.html', title="Smile Portal", form=form)
 
 
-@bp_routes.route('/index', methods=['GET'])
+@bp_routes.route('/index', methods=['GET', 'POST'])
 def index():
-    posts = Post.query.order_by(Post.timestamp.desc())
-    return render_template('index.html', title="Smile Portal", posts=posts)
+    sort_form = SortForm()
+    order = Post.timestamp.desc()  
 
+    if sort_form.validate_on_submit():
+        sort_by = sort_form.sort_by.data
+        if sort_by == 'date':  
+            order = Post.timestamp.desc()
+        elif sort_by == 'title':  
+            order = Post.title.desc() 
+        elif sort_by == 'likes':  
+            order = Post.likes.desc() 
+        elif sort_by == 'happiness':  
+            order = Post.happiness_level.desc() 
+
+    posts = Post.query.order_by(order).all()
+
+    return render_template('index.html', title="Smile Portal", posts=posts, sort_form=sort_form)
 
 
 @bp_routes.route('/like/<post_id>', methods=['POST'])
