@@ -5,4 +5,30 @@
 
     <!-- TODO: (milestone 3) Include the template for "user registration" form here..  -->
     
-{% endblock %}
+    {% if form %}
+
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            
+            <div class="forminput">
+                {{ form.username.label }}<br>
+                {{ form.username(class="form-username")}}<br>
+
+                <br>
+                {{ form.email.label }}<br>
+                {{ form.email(class="form-email") }}<br>
+            
+                    <br>
+                {{ form.password1.label }}<br>
+                {{ form.password1(class="password-1") }}<br>
+                <br>
+                {{ form.password2.label}}<br>
+                {{ form.password2(class="password-2") }}<br>
+            
+                <br>
+                {{ form.register }}<br>
+                </div>
+        </form>
+        {% endif %}
+    
+        {% endblock %}

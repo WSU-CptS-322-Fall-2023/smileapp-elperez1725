@@ -156,3 +156,27 @@ a:hover {
     background-color: white;
 
 }
+
+
+.form-username{
+    width: 40%;
+    height:5%;
+    
+}
+
+.form-email{
+    width: 40%;
+    height:5%;
+
+}
+
+.password-1{
+    width: 40%;
+    height:5%;
+}
+
+
+.password-2{
+    width: 40%;
+    height:5%;
+}
