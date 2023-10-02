@@ -1,10 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
+
     <h1>Sign In</h1>
     <!-- TODO: (milestone 3) Include the template for "login form" here...  -->
+    {% if current_user.is_authenticated %}
+    <!-- User is logged in -->
 
-    <!-- TODO: (milestone 3) Add the URL for user register route. --> 
-    <p>New User? <a href="">Click to Register!</a></p>
+        <p>Welcome, {{ current_user.username }}!</p>
+        <p><a href="{{ url_for('auth.logout') }}" method="post">Logout</a></p>
+
+    {% else %}
+        <form action="", method="post">
+            {{ form.hidden_tag() }}
+
+            {{ form.username.label }}<br>
+            {{ form.username(class="form-username")}}<br>
+
+            {% for error in form.username.errors %}
+                            <span class="error">{{ error }}</span><br>
+            {% endfor %}
+
+                <br>
+            {{ form.password.label }}<br>
+            {{ form.password(class="password-1") }}<br>
+            <br>
+
+
+            {% for error in form.password.errors %}
+                            <span class="error">{{ error }}</span><br>
+            {% endfor %}
+
+
+
+            
+            {{ form.remember_me.label}}<br>
+            {{ form.remember_me(class="remember_me") }}<br>
+        
+            <br>
+
+            {% for error in form.remember_me.errors %}
+                            <span class="error">{{ error }}</span><br>
+                {% endfor %}
+
+            {{ form.submit }}<br>
+        <!-- TODO: (milestone 3) Add the URL for user register route. -->
+        
+        <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+        {% endif %}
+        </form>
 {% endblock %}
 

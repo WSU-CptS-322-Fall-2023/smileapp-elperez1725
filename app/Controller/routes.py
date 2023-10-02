@@ -2,6 +2,7 @@ from __future__ import print_function
 import sys
 from flask import Blueprint
 from flask import render_template, flash, redirect, url_for, request
+from flask_login import current_user
 from config import Config
 from app import db
 from app.Model.models import Post, Tag, postTags
@@ -16,10 +17,11 @@ bp_routes.template_folder = Config.TEMPLATE_FOLDER #'..\\View\\templates'
 def postsmile():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, body=form.body.data, happiness_level=form.happiness_level.data)
+        post = Post(title=form.title.data, body=form.body.data, happiness_level=form.happiness_level.data, user_id=current_user.get_id())
         for tag in form.tag.data:
             post.tags.append(tag)
 
+       
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
@@ -43,7 +45,12 @@ def index():
         elif sort_by == 'happiness':  
             order = Post.happiness_level.desc() 
 
-    posts = Post.query.order_by(order).all()
+    if sort_form.display_posts.data:
+        posts = current_user.get_user_posts().order_by(order).all()
+    else:
+
+        posts = Post.query.order_by(order).all()
+
 
     return render_template('index.html', title="Smile Portal", posts=posts, sort_form=sort_form)
 
