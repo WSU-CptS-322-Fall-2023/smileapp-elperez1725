@@ -63,3 +63,15 @@ def like(post_id):
     db.session.commit()
     return redirect(url_for('routes.index'))
 
+
+@bp_routes.route('/deletepost/<post_id>', methods=['POST', 'DELETE'])
+def delete(post_id):
+    post = Post.query.get(post_id)
+    if post.user_id == current_user.id:
+        for t in post.tags:
+            post.tags.remove(t)
+        db.session.delete(post)
+        db.session.commit()
+
+    return redirect(url_for('routes.index'))
+
